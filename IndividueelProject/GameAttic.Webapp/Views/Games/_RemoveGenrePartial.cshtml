@@ -1,0 +1,7 @@
+﻿@model RemoveGenreVM;
+
+<form asp-action="RemoveGenreFromGame" asp-controller="Games" method="post">
+    <input type="hidden" asp-for="GameId" />
+    <input type="hidden" asp-for="GenreId" />
+    <input class="btn btn-danger" type="submit" value="Remove Genre" />
+</form>

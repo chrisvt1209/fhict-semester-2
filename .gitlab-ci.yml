@@ -1,0 +1,25 @@
+stages:
+    - sonarqube-check
+
+sonarqube-check:
+  stage: sonarqube-check
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${GL_KEY}"
+    paths:
+      - .sonar/cache
+  script: 
+      - "dotnet tool install --global dotnet-sonarscanner"
+      - "dotnet tool install --global dotnet-coverage"
+      - "export PATH=\"$PATH:$HOME/.dotnet/tools\""
+      - "ls"
+      - "cd \"IndividueelProject\" "
+      - "dotnet sonarscanner begin /k:\"S2-001-Chris-van-Tiggelen\" /d:sonar.token=sqp_0ac0f0dfdc3b043b1d59c2de9aba1f3bccf78d28 /d:sonar.host.url=https://sq.robben.cloud"
+      - "dotnet build"
+      - "dotnet-coverage collect \"dotnet test\" -f xml -o \"coverage.xml\""
+      - "ls"
+      - "dotnet sonarscanner end /d:sonar.token=\"sqp_0ac0f0dfdc3b043b1d59c2de9aba1f3bccf78d28\""
+  allow_failure: true

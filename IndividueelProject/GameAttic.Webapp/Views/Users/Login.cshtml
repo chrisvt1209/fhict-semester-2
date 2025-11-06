@@ -1,0 +1,49 @@
+﻿@model LoginUserVM;
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<style>
+    body {
+        overflow: hidden;
+    }
+    .full-height {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+
+<div class="row full-height">
+   <div class="col-md-3 card p-3">
+      <h2 class="text-center text-info">Login</h2>
+        <form asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-1">
+               <label asp-for="Username" class="control-label"></label>
+               <input asp-for="Username" class="form-control" placeholder="Username" />
+               <span asp-validation-for="Username" class="text-danger"></span>
+               </div>
+            <div class="mb-1">
+               <label asp-for="Password" class="control-label"></label>
+               <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="d-grid">
+               <button type="submit" class="btn btn-primary">Login</button>
+               <span class="text-center">Don't have an account? <a asp-action="Register">Register here</a></span>
+            </div>
+        </form>
+   </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

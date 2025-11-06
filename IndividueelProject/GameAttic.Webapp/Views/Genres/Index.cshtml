@@ -1,0 +1,22 @@
+﻿@model GenreListVM;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="text-lg-center">
+    <h2>Genres</h2>
+    <a class="btn btn-primary" asp-action="create">Add genre</a>
+</div>
+
+<div class="py-3">
+    <ul class="list-group">
+        @foreach (GenreVM genre in Model.GenreList!)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                @genre.Name
+                <a asp-action="Edit" asp-route-id="@genre.Id" class="btn btn-secondary"><i class="bi bi-pen"></i></a>
+            </li>
+        }
+    </ul>
+</div>

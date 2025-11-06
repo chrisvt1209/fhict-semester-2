@@ -1,0 +1,13 @@
+﻿@model AddPlatformsToGameVM
+
+<h2>Add platforms to a game</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="GameId" />
+
+    <select asp-for="SelectedPlatformId" asp-items="@(new SelectList(Model.AvailablePlatforms, "Id", "Name"))">
+        <option value="">Select a platform</option>
+    </select>
+
+    <button class="btn btn-primary" type="submit">Add Platform</button>
+</form>

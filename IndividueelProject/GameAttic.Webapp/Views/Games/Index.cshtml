@@ -1,0 +1,123 @@
+﻿@model GamesIndexVM;
+@using GameAttic.Domain;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Games Collection</h2>
+<div class="container">
+    <form asp-action="Index" method="get">
+        <div class="row">
+            <!--Search bar-->
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Search game.." value="@Model.GameFilterVM?.Title" />
+            </div>
+
+            <!--Platforms filter-->
+            <div class="col-md-3">
+                <select class="form-select" id="platform" name="platformId">
+                    <option value="">All</option>
+                    @foreach (PlatformVM platform in Model.AllPlatforms)
+                    {
+                        if (Model.GameFilterVM?.PlatformId != null && platform.Id == Model.GameFilterVM.PlatformId)
+                        {
+                            <option selected value="@platform.Id">@platform.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@platform.Id">@platform.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <!--Genres filter-->
+            <div class="col-md-3">
+                <select class="form-select" id="genre" name="genreId">
+                    <option value="">All</option>
+                    @foreach (GenreVM genre in Model.AllGenres)
+                    {
+                        if (Model.GameFilterVM?.GenreId != null && genre.Id == Model.GameFilterVM.GenreId)
+                        {
+                            <option selected value="@genre.Id">@genre.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@genre.Id">@genre.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <!--Buttons-->
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-secondary">Apply</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Reset</a>
+                <a class="btn btn-primary" asp-action="create">Add game</a>
+            </div>
+
+            <div class="row mt-3 mb-2">
+                <!--Sort Columns-->
+                <div class="col-md-2">
+                    <label class="form-label">Sort by</label>
+                    <hr class="mt-0 mb-1" />
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="orderColumn" id="orderColumn-@GameOrderColumn.Title" value="@GameOrderColumn.Title" @(Model.GameFilterVM?.OrderColumn == GameOrderColumn.Title ? "checked" : "")>
+                        <label class="form-check-label" for="orderColumn-@GameOrderColumn.Title">Title</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="orderColumn" id="orderColumn-@GameOrderColumn.ReleaseDate" value="@GameOrderColumn.ReleaseDate" @(Model.GameFilterVM?.OrderColumn == GameOrderColumn.ReleaseDate ? "checked" : "")>
+                        <label class="form-check-label" for="orderColumn-@GameOrderColumn.ReleaseDate">Release date</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="orderColumn" id="orderColumn-@GameOrderColumn.Price" value="@GameOrderColumn.Price" @(Model.GameFilterVM?.OrderColumn == GameOrderColumn.Price ? "checked" : "")>
+                        <label class="form-check-label" for="orderColumn-@GameOrderColumn.Price">Price</label>
+                    </div>
+                </div>
+
+                <!--Sort Order-->
+                <div class="col-md-1">
+                    <label class="form-label">Sort Order</label>
+                    <hr class="mt-0 mb-1" />
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isAsc" id="isAsc-Ascending" value="true" @(Model.GameFilterVM?.IsAsc == true ? "checked" : "")>
+                        <label class="form-check-label" for="isAsc">Ascending</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isAsc" id="isAsc-Descending" value="false" @(Model.GameFilterVM?.IsAsc == false ? "checked" : "")>
+                        <label class="form-check-label" for="isAsc">Descending</label>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </form>
+</div>
+
+<div class="py-3">
+    <div class="container">
+        <div class="row hidden-md-up">
+            @foreach (GameVM game in Model.GameList!)
+            {
+                <div class="col-md-4 py-3">
+                    <div class="card" style="width:400px">
+                        <img class="card-img-top card-img" src="@(game.ImageUrl ?? "/image/placeholder-img.jpg")" alt="Card image" style="width:100%; height:200px;">
+                        <div class="card-body">
+                            <h6 class="card-title">@game.Title</h6>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <a asp-action="Details" asp-route-id="@game.Id" class="btn btn-primary">See details</a>
+                                    <a asp-action="Edit" asp-route-id="@game.Id" class="btn btn-secondary"><i class="bi bi-pen"></i></a>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn"><i class="bi bi-star"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

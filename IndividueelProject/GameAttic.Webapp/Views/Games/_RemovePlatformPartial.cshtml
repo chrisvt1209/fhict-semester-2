@@ -1,0 +1,7 @@
+﻿@model RemovePlatformVM;
+
+<form asp-action="RemovePlatformFromGame" asp-controller="Games" method="post">
+    <input type="hidden" asp-for="GameId" />
+    <input type="hidden" asp-for="PlatformId" />
+    <input class="btn btn-danger" type="submit" value="Remove Platform" />
+</form>

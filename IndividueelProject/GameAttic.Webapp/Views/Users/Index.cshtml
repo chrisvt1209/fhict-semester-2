@@ -1,0 +1,28 @@
+﻿@model UserListVM;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container mt-3">
+    <h2>Registered Users</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Display Name</th>
+                <th>Email</th>
+                <th>Is Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (UserVM user in Model.UserList!)
+            {
+                <tr>
+                    <td>@user.DisplayName</td>
+                    <td>@user.Email</td>
+                    <td>@user.IsAdmin.ToString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

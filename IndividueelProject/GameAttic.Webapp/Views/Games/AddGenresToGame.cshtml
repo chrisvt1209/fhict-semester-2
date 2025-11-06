@@ -1,0 +1,13 @@
+﻿@model AddGenresToGameVM
+
+<h2>Add genres to a game</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="GameId" />
+
+    <select asp-for="SelectedGenreId" asp-items="@(new SelectList(Model.AvailableGenres, "Id", "Name"))">
+        <option value="">Select a genre</option>
+    </select>
+
+    <button class="btn btn-primary" type="submit">Add Genre</button>
+</form>

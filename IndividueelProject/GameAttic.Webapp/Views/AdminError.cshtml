@@ -1,0 +1,23 @@
+﻿﻿@{
+    ViewData["Title"] = "Error";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<body class="d-flex vh-100 align-items-center justify-content-center bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card text-center shadow">
+                    <div class="card-body">
+                        <div class="alert alert-warning" role="alert">
+                            Onvoldoende rechten
+
+                        </div>
+                        <p class="lead">You do not have the rights to view this page. Click the button below to return home.</p>
+                        <a href="/Home/Index" class="btn btn-primary btn-lg">Go to the homepage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
